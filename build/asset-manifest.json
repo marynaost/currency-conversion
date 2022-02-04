@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.fda7a0dc.chunk.css",
+    "main.js": "/static/js/main.51dee623.chunk.js",
+    "main.js.map": "/static/js/main.51dee623.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.cc3e1485.js",
+    "runtime-main.js.map": "/static/js/runtime-main.cc3e1485.js.map",
+    "static/css/2.c01213aa.chunk.css": "/static/css/2.c01213aa.chunk.css",
+    "static/js/2.83c53adb.chunk.js": "/static/js/2.83c53adb.chunk.js",
+    "static/js/2.83c53adb.chunk.js.map": "/static/js/2.83c53adb.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.c01213aa.chunk.css.map": "/static/css/2.c01213aa.chunk.css.map",
+    "static/css/main.fda7a0dc.chunk.css.map": "/static/css/main.fda7a0dc.chunk.css.map",
+    "static/js/2.83c53adb.chunk.js.LICENSE.txt": "/static/js/2.83c53adb.chunk.js.LICENSE.txt",
+    "static/media/CurrentRate.module.scss": "/static/media/currency-exchange.bcc64bd4.jpg",
+    "static/media/Convertasion.module.scss": "/static/media/money.4da1a0f5.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cc3e1485.js",
+    "static/css/2.c01213aa.chunk.css",
+    "static/js/2.83c53adb.chunk.js",
+    "static/css/main.fda7a0dc.chunk.css",
+    "static/js/main.51dee623.chunk.js"
+  ]
+}

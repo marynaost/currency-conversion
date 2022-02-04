@@ -1,0 +1,55 @@
+.convertasion {
+  padding-top: 55px;
+  padding-bottom: 450px;
+  background-image: url(../../images/money.jpg);
+  background-position: 50% 25%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.container {
+  height: 100px;
+  width: 600px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input {
+  padding-left: 5px;
+  font-size: 20px;
+  height: 36px;
+}
+
+.middle,
+.right {
+  width: 120px;
+}
+
+.switch {
+  padding: 5px;
+  margin-top: 25px;
+  background-color: midnightblue;
+  color: rgb(186, 216, 247);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.amount {
+  padding: 20px 0;
+  width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid rgb(94, 94, 122);
+  background-color: #fff;
+}
+
+p,
+h3 {
+  color: midnightblue;
+  text-shadow: 1px 1px 2px #fff, 0 0 1em #fff;
+}
+p {
+  font-size: 30px;
+}

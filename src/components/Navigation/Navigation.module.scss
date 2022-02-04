@@ -1,0 +1,18 @@
+.nav {
+  padding: 40px 0;
+  text-align: center;
+  background-color: midnightblue;
+}
+.item {
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  &:not(:last-child) {
+    margin-right: 30px;
+  }
+}
+
+.active {
+  composes: item;
+  color: rgb(159, 226, 243);
+}
