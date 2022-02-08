@@ -10,9 +10,9 @@ export default function CurrentRate() {
   const [options, setOptions] = useState([]);
   const [fromUSD, setFromUSD] = useState('USD');
   const [fromEUR, setFromEUR] = useState('EUR');
-  const [to, setTo] = useState('UAH');
-  const [outputUSD, setOutputUSD] = useState(0);
-  const [outputEUR, setOutputEUR] = useState(0);
+  const [to, setTo] = useState('');
+  const [outputUSD, setOutputUSD] = useState('');
+  const [outputEUR, setOutputEUR] = useState('');
 
   useEffect(() => {
     API.fetchCurrencyList().then(data => {
@@ -21,25 +21,39 @@ export default function CurrentRate() {
   }, []);
 
   useEffect(() => {
+    if (!to) {
+      return;
+    }
     API.fetchCurrencyConvension(fromUSD, to, 1)
       .then(data => {
         setOutputUSD(data.rates[to].rate_for_amount);
       })
       .catch(err => {
-        toast.error(`${err}. Please repeat your request tomorrow`);
+        toast.error(err);
       });
-  }, [to]);
+  }, [fromUSD, to]);
 
   useEffect(() => {
+    if (!to) {
+      return;
+    }
     API.fetchCurrencyConvension(fromEUR, to, 1)
       .then(data => {
         setOutputEUR(data.rates[to].rate_for_amount);
       })
       .catch(err => console.log(err));
-  }, [to]);
+  }, [fromEUR, to]);
 
-  const convertasion1 = Number(outputUSD).toFixed(2);
-  const convertasion2 = Number(outputEUR).toFixed(2);
+  const convertasion = output => {
+    if (output) {
+      const coin = output.split('.')[1];
+      const gain =
+        Number(coin[0]) === 0 && Number(coin[1]) === 0
+          ? output
+          : Number(output).toFixed(2);
+      return gain;
+    }
+  };
 
   return (
     <>
@@ -57,12 +71,16 @@ export default function CurrentRate() {
             placeholder="To"
           />
         </div>
-        <p>
-          1 {fromUSD} = {convertasion1} {to}
-        </p>
-        <p>
-          1 {fromEUR} = {convertasion2} {to}
-        </p>
+        {outputUSD && (
+          <p>
+            1 {fromUSD} = {convertasion(outputUSD)} {to}
+          </p>
+        )}
+        {outputEUR && (
+          <p>
+            1 {fromEUR} = {convertasion(outputEUR)} {to}
+          </p>
+        )}
       </div>
     </>
   );

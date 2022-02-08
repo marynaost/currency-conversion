@@ -1,98 +1,91 @@
 import { useEffect, useState } from 'react';
-import Dropdown from 'react-dropdown';
-import { HiSwitchHorizontal } from 'react-icons/hi';
-import 'react-dropdown/style.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as API from 'services/api';
 import s from './Convertasion.module.scss';
 
 export default function Convertasion() {
-  const [input, setInput] = useState(0);
-  const [from, setFrom] = useState('USD');
-  const [to, setTo] = useState('UAH');
-  const [options, setOptions] = useState([]);
-  const [output, setOutput] = useState(0);
+  const [input, setInput] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
+  const [equal, setEqual] = useState('');
+
+  const [output, setOutput] = useState('');
 
   useEffect(() => {
-    API.fetchCurrencyList().then(data => {
-      setOptions(Object.keys(data.currencies));
-    });
-  }, []);
-
-  useEffect(() => {
-    API.fetchCurrencyConvension(from, to, input)
+    if (!from && !to && !quantity) {
+      return;
+    }
+    API.fetchCurrencyConvension(from, to, quantity)
       .then(data => {
         setOutput(data.rates[to].rate_for_amount);
       })
       .catch(err => {
-        toast.error(`${err}. Please repeat your request tomorrow`);
+        toast.error(err);
       });
-  }, [from, input, to]);
-
-  function flip() {
-    setFrom(to);
-    setTo(from);
-  }
+  }, [from, quantity, to]);
 
   function inputValue(e) {
     if (e.target.value === '') {
-      setInput(0);
+      setQuantity('');
+      setFrom('');
+      setTo('');
+      setEqual('');
       return;
     }
-    setInput(e.target.value);
+    setInput(e.target.value.toUpperCase());
   }
 
-  const convertasion = Number(output).toFixed(2);
+  const handleOnSubmit = e => {
+    e.preventDefault();
+    const arrayOfString = input.split(' ');
+    const quantity = arrayOfString[0];
+    const from = arrayOfString[1];
+    const to = arrayOfString[3];
+    if (!quantity || !from || !to) {
+      toast.error('Please enter all data');
+      return;
+    }
+    setQuantity(quantity);
+    setFrom(from);
+    setTo(to);
+    setEqual('=');
+  };
 
+  const convertasion = () => {
+    if (output) {
+      const coin = output.split('.')[1];
+      const gain =
+        Number(coin[0]) === 0 && Number(coin[1]) === 0
+          ? output
+          : Number(output).toFixed(2);
+      return gain;
+    }
+  };
   return (
     <div className={s.convertasion}>
       <h1>Currency converter</h1>
       <div className={s.container}>
         <div>
           <h3>Amount</h3>
-          <input
-            className={s.input}
-            type="text"
-            placeholder="Enter the amount"
-            onChange={e => inputValue(e)}
-          />
-        </div>
-        <div className={s.middle}>
-          <h3>From</h3>
-          <Dropdown
-            options={options}
-            onChange={e => {
-              setFrom(e.value);
-            }}
-            value={from}
-            placeholder="From"
-          />
-        </div>
-        <div className={s.switch}>
-          <HiSwitchHorizontal
-            size="30px"
-            onClick={() => {
-              flip();
-            }}
-          />
-        </div>
-        <div className={s.right}>
-          <h3>To</h3>
-          <Dropdown
-            options={options}
-            onChange={e => {
-              setTo(e.value);
-            }}
-            value={to}
-            placeholder="To"
-          />
+          <form onSubmit={handleOnSubmit}>
+            <input
+              className={s.input}
+              type="text"
+              placeholder="Enter the amount"
+              onChange={e => inputValue(e)}
+            />
+            <button type="submit" className={s.button}>
+              Сonvert
+            </button>
+          </form>
         </div>
       </div>
       <div className={s.amount}>
         <h2>Converted Amount:</h2>
         <p>
-          {input} {from} = {convertasion} {to}
+          {quantity} {from} {equal} {convertasion()} {to}
         </p>
       </div>
     </div>
