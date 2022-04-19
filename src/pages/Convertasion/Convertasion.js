@@ -32,6 +32,7 @@ export default function Convertasion() {
       setFrom('');
       setTo('');
       setEqual('');
+      setOutput('');
       return;
     }
     setInput(e.target.value.toUpperCase());
@@ -68,12 +69,13 @@ export default function Convertasion() {
       <h1>Currency converter</h1>
       <div className={s.container}>
         <div>
-          <h3>Amount</h3>
+          <h3>Please follow the example below</h3>
+          <h3>5 usd in uah</h3>
           <form onSubmit={handleOnSubmit}>
             <input
               className={s.input}
               type="text"
-              placeholder="Enter the amount"
+              placeholder="5 usd in uah"
               onChange={e => inputValue(e)}
             />
             <button type="submit" className={s.button}>
@@ -83,7 +85,7 @@ export default function Convertasion() {
         </div>
       </div>
       <div className={s.amount}>
-        <h2>Converted Amount:</h2>
+        <h2>Result:</h2>
         <p>
           {quantity} {from} {equal} {convertasion()} {to}
         </p>
